@@ -1,7 +1,5 @@
 include prelude
 
-let input = readFile(joinPath(os.getAppDir(), "input.txt"))
-
 
 func numTrees(lines: openArray[string], right: int, down: int): int =
   let width = lines[0].len
@@ -19,14 +17,17 @@ func numTrees(lines: openArray[string], right: int, down: int): int =
 
 
 proc main_1 =
-  let lines = input.splitLines()
+  let
+    input = readFile(joinPath(os.getAppDir(), "input.txt"))
+    lines = splitLines(input)
 
   echo numTrees(lines, 3, 1)
 
 
 proc main_2 =
   let
-    lines = input.splitLines()
+    input = readFile(joinPath(os.getAppDir(), "input.txt"))
+    lines = splitLines(input)
     a = numTrees(lines, 1, 1)
     b = numTrees(lines, 3, 1)
     c = numTrees(lines, 5, 1)
