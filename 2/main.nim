@@ -14,7 +14,6 @@ proc parseLine(line: string): (int, int, char, string) =
       password = matches[3]
 
     return (a, b, char, password)
-    return (1, 1, 'a', "asdf")
 
 
 proc main_1 =
