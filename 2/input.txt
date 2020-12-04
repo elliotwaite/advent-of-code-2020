@@ -1,6 +1,4 @@
-include prelude
-
-const input = """2-8 t: pncmjxlvckfbtrjh
+2-8 t: pncmjxlvckfbtrjh
 8-9 l: lzllllldsl
 3-11 c: ccchcccccclxnkcmc
 3-10 h: xcvxkdqshh
@@ -999,46 +997,4 @@ const input = """2-8 t: pncmjxlvckfbtrjh
 10-18 h: xkswshrhghxlnmhqzr
 5-18 k: kkkkkkkhkkkklkkkknk
 9-10 t: ttttttttnt
-10-11 x: xxxxxxxxxcv"""
-
-
-proc main_1 =
-  var num_valid = 0
-  for line in splitLines(input):
-    let
-      line_split = line.split(": ")
-      policy_split = line_split[0].split(' ')
-      min_max_split = policy_split[0].split('-')
-      min = min_max_split[0].parseInt
-      max = min_max_split[1].parseInt
-      char = policy_split[1][0]
-      password = line_split[1]
-
-    let char_count = password.count(char)
-
-    if min <= char_count and char_count <= max:
-      num_valid += 1
-
-  echo num_valid
-
-
-proc main_2 =
-  var num_valid = 0
-  for line in splitLines(input):
-    let
-      line_split = line.split(": ")
-      policy_split = line_split[0].split(' ')
-      pos_split = policy_split[0].split('-')
-      pos_0 = pos_split[0].parseInt - 1
-      pos_1 = pos_split[1].parseInt - 1
-      char = policy_split[1][0]
-      password = line_split[1]
-
-    if password[pos_0] == char xor password[pos_1] == char:
-      num_valid += 1
-
-  echo num_valid
-
-
-main_1()
-main_2()
+10-11 x: xxxxxxxxxcv

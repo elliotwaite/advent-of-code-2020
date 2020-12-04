@@ -1,7 +1,4 @@
-include prelude
-import sequtils, sugar
-
-const input = """1834
+1834
 1546
 1119
 1870
@@ -200,27 +197,4 @@ const input = """1834
 1854
 1287
 1641
-1760"""
-
-
-proc main_1 =
-  let nums = splitLines(input).map(x => parseInt(x))
-  for i in 0 .. nums.high:
-    for j in i + 1 .. nums.high:
-      if nums[i] + nums[j] == 2020:
-        echo nums[i] * nums[j]
-        return
-
-
-proc main_2 =
-  let nums = splitLines(input).map(x => parseInt(x))
-  for i in 0 .. nums.high:
-    for j in i + 1 .. nums.high:
-      for k in j + 1 .. nums.high:
-        if nums[i] + nums[j] + nums[k] == 2020:
-          echo nums[i] * nums[j] * nums[k]
-          return
-
-
-main_1()
-main_2()
+1760
