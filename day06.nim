@@ -1,11 +1,9 @@
 include prelude
 include sequtils
 
-let inputPath = joinPath(os.getAppDir(), "input.txt")
 
-
-proc part1: int =
-  for group in inputPath.readFile.split("\p\p"):
+proc part1(groups: seq[string]): int =
+  for group in groups:
     var groupSet: set[char]
     for line in group.splitLines:
       for char in line:
@@ -14,8 +12,8 @@ proc part1: int =
     result += groupSet.len
 
 
-proc part2: int =
-  for group in inputPath.readFile.split("\p\p"):
+proc part2(groups: seq[string]): int =
+  for group in groups:
     var groupSet = {'a' .. 'z'}
     for line in group.splitLines:
       var lineSet: set[char]
@@ -27,11 +25,16 @@ proc part2: int =
     result += groupSet.len
 
 
-when isMainModule:
-  let answer1 = part1()
-  doAssert answer1 == 6782
-  echo answer1
+proc main =
+  var groups = "inputs/day06.txt".readFile.split("\p\p")
 
-  let answer2 = part2()
-  doAssert answer2 == 3596
+  let answer1 = part1(groups)
+  echo answer1
+  doAssert answer1 == 6782
+
+  let answer2 = part2(groups)
   echo answer2
+  doAssert answer2 == 3596
+
+
+main()

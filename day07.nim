@@ -1,8 +1,6 @@
 include prelude
 import hashes, intsets, sequtils, strscans
 
-let inputPath = joinPath(os.getAppDir(), "input.txt")
-
 type
   ParentsTable = Table[string, HashSet[string]]
   Child = tuple[color: string, count: int]
@@ -22,10 +20,10 @@ proc parseLine(line: string): (string, seq[(string, int)]) =
           result[1].add((color, count))
 
 
-proc part1: int =
+proc part1(lines: seq[string]): int =
   var parentsTable: ParentsTable
 
-  for line in inputPath.lines:
+  for line in lines:
     let (parent, children) = line.parseLine
     for (child, count) in children:
       parentsTable.mgetOrPut(child, initHashSet[string]()).incl parent
@@ -44,10 +42,10 @@ proc part1: int =
   return ancestors.len
 
 
-proc part2: int =
+proc part2(lines: seq[string]): int =
   var childrenTable: ChildrenTable
 
-  for line in inputPath.lines:
+  for line in lines:
     let (parent, children) = line.parseLine
     childrenTable[parent] = newSeq[Child]()
     for (child, count) in children:
@@ -66,11 +64,16 @@ proc part2: int =
   return numDescendents("shiny gold")
 
 
-when isMainModule:
-  let answer1 = part1()
-  doAssert answer1 == 224
-  echo answer1
+proc main =
+  let lines = toSeq("inputs/day07.txt".lines)
 
-  let answer2 = part2()
-  doAssert answer2 == 1488
+  let answer1 = part1(lines)
+  echo answer1
+  doAssert answer1 == 224
+
+  let answer2 = part2(lines)
   echo answer2
+  doAssert answer2 == 1488
+
+
+main()

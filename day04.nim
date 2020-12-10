@@ -1,14 +1,17 @@
 include prelude
 import re, sequtils
 
-let inputPath = joinPath(os.getAppDir(), "input.txt")
-
-
 let
   requiredFields = toHashSet(["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"])
   hclPattern = re"^#[0-9a-f]{6}$"
   eclSet = toHashSet(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"])
   pidPattern = re"^\d{9}$"
+
+
+proc toPassport(passportStr: string): Table[string, string] =
+  for keyVal in passportStr.splitWhitespace:
+    let keyValSplit = keyVal.split(':')
+    result[keyValSplit[0]] = keyValSplit[1]
 
 
 proc isValid(passport: Table[string, string]): bool =
@@ -29,31 +32,28 @@ proc isValid(passport: Table[string, string]): bool =
     return false
 
 
-proc toPassport(passportStr: string): Table[string, string] =
-  for keyVal in passportStr.splitWhitespace:
-    let keyValSplit = keyVal.split(':')
-    result[keyValSplit[0]] = keyValSplit[1]
-
-
-proc part1: int =
-  let passports = inputPath.readFile.split("\p\p").map(toPassport)
+proc part1(passports: seq[Table[string, string]]): int =
   for passport in passports:
     if toSeq(passport.keys).toHashSet >= requiredFields:
       inc result
 
 
-proc part2: int =
-  let passports = inputPath.readFile.split("\p\p").map(toPassport)
+proc part2(passports: seq[Table[string, string]]): int =
   for passport in passports:
     if isValid(passport):
       inc result
 
 
-when isMainModule:
-  let answer1 = part1()
-  doAssert answer1 == 196
-  echo answer1
+proc main =
+  let passports = "inputs/day04.txt".readFile.split("\p\p").map(toPassport)
 
-  let answer2 = part2()
-  doAssert answer2 == 114
+  let answer1 = part1(passports)
+  echo answer1
+  doAssert answer1 == 196
+
+  let answer2 = part2(passports)
   echo answer2
+  doAssert answer2 == 114
+
+
+main()
