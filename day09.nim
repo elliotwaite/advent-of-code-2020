@@ -6,11 +6,11 @@ const cypherDist = 25
 
 proc part1(nums: seq[int]): int =
   for i in cypherDist .. nums.high:
-    block validBlock:
+    block breakWhenValid:
       for j in i - cypherDist ..< i:
         for k in j + 1 ..< i:
           if nums[i] == nums[j] + nums[k]:
-            break validBlock
+            break breakWhenValid
 
       return nums[i]
 
