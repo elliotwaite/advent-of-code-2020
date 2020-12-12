@@ -1,8 +1,13 @@
 include prelude
 import sequtils
 
+type
+  Grid = seq[string]
+  Neighbors = seq[seq[int]]
+  Seats = seq[bool]
 
-proc getNeighbors(grid: seq[string], part: int): seq[seq[int]] =
+
+proc getNeighbors(grid: Grid, part: int): Neighbors =
   let iSlice = 0 .. grid.high
   let jSlice = 0 .. grid[0].high
 
@@ -35,7 +40,12 @@ proc getNeighbors(grid: seq[string], part: int): seq[seq[int]] =
                 cj += dj
 
 
-proc updateSeats(seats1: var seq[bool], seats2: var seq[bool], neighbors: seq[seq[int]], maxNeighbors: int): bool =
+proc updateSeats(
+  seats1: var Seats,
+  seats2: var Seats,
+  neighbors: Neighbors,
+  maxNeighbors: int,
+): bool =
   for i, offsets in neighbors:
     var count = 0
     for offset in offsets:
@@ -47,7 +57,7 @@ proc updateSeats(seats1: var seq[bool], seats2: var seq[bool], neighbors: seq[se
       result = true
 
 
-proc getStableNum(neighbors: seq[seq[int]], maxNeighbors: int): int =
+proc getStableNum(neighbors: Neighbors, maxNeighbors: int): int =
   var seats1, seats2 = newSeq[bool](neighbors.len)
   while updateSeats(seats1, seats2, neighbors, maxNeighbors):
     swap(seats1, seats2)
@@ -57,12 +67,12 @@ proc getStableNum(neighbors: seq[seq[int]], maxNeighbors: int): int =
       inc result
 
 
-proc part1(grid: seq[string]): int =
+proc part1(grid: Grid): int =
   let neighbors = getNeighbors(grid, 1)
   return getStableNum(neighbors, 3)
 
 
-proc part2(grid: seq[string]): int =
+proc part2(grid: Grid): int =
   let neighbors = getNeighbors(grid, 2)
   return getStableNum(neighbors, 4)
 
