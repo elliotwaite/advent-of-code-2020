@@ -40,12 +40,8 @@ proc getNeighbors(grid: Grid, part: int): Neighbors =
                 cj += dj
 
 
-proc updateSeats(
-  seats1: var Seats,
-  seats2: var Seats,
-  neighbors: Neighbors,
-  maxNeighbors: int,
-): bool =
+proc updateSeats(seats1: var Seats, seats2: var Seats,
+                 neighbors: Neighbors, maxNeighbors: int): bool =
   for i, offsets in neighbors:
     var count = 0
     for offset in offsets:
