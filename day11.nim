@@ -1,67 +1,70 @@
 include prelude
-import algorithm, math, sequtils, strutils, sugar, tables
+import sequtils
 
 
-proc nextState(grid: seq[string], part: int): (seq[string], bool) =
+proc getNeighbors(grid: seq[string], part: int): seq[seq[int]] =
   let iSlice = 0 .. grid.high
   let jSlice = 0 .. grid[0].high
-  let maxNeighbors = 3 + part
 
-  result[0] = grid
+  var offsets = newSeqWith(grid.len, newSeq[int](grid[0].len))
+  var offset = 0
+  for i in iSlice:
+    for j in jSlice:
+      offsets[i][j] = offset
+      if grid[i][j] != '.':
+        inc offset
+
   for i in iSlice:
     for j in jSlice:
       if grid[i][j] != '.':
-        var count = 0
-        for a in -1 .. 1:
-          for b in -1 .. 1:
-            if not (a == 0 and b == 0):
-              var p = i + a
-              var q = j + b
-              while p in iSlice and q in jSlice:
-                if grid[p][q] == '#':
-                  inc count
+        result.add @[]
+        for di in -1 .. 1:
+          for dj in -1 .. 1:
+            if not (di == 0 and dj == 0):
+              var ci = i + di
+              var cj = j + dj
+              while ci in iSlice and cj in jSlice:
+                if grid[ci][cj] == 'L':
+                  result[^1].add offsets[ci][cj]
                   break
 
-                if part == 1 or grid[p][q] == 'L':
+                if part == 1:
                   break
 
-                p = p + a
-                q = q + b
-
-        if grid[i][j] == 'L':
-          if count == 0:
-            result[0][i][j] = '#'
-            result[1] = true
-
-        elif grid[i][j] == '#':
-          if count >= maxNeighbors:
-            result[0][i][j] = 'L'
-            result[1] = true
+                ci += di
+                cj += dj
 
 
-proc countOccupied(grid: seq[string]): int =
-  for row in grid:
-    for seat in row:
-      if seat == '#':
-        inc result
+proc updateSeats(seats1: var seq[bool], seats2: var seq[bool], neighbors: seq[seq[int]], maxNeighbors: int): bool =
+  for i, offsets in neighbors:
+    var count = 0
+    for offset in offsets:
+      if seats1[offset]:
+        inc count
+
+    seats2[i] = count == 0 or count <= maxNeighbors and seats1[i]
+    if seats2[i] != seats1[i]:
+      result = true
+
+
+proc getStableNum(neighbors: seq[seq[int]], maxNeighbors: int): int =
+  var seats1, seats2 = newSeq[bool](neighbors.len)
+  while updateSeats(seats1, seats2, neighbors, maxNeighbors):
+    swap(seats1, seats2)
+
+  for seat in seats1:
+    if seat:
+      inc result
 
 
 proc part1(grid: seq[string]): int =
-  var grid = grid
-  var didChange = true
-  while didChange:
-    (grid, didChange) = nextState(grid, 1)
-
-  return countOccupied(grid)
+  let neighbors = getNeighbors(grid, 1)
+  return getStableNum(neighbors, 3)
 
 
 proc part2(grid: seq[string]): int =
-  var grid = grid
-  var didChange = true
-  while didChange:
-    (grid, didChange) = nextState(grid, 2)
-
-  return countOccupied(grid)
+  let neighbors = getNeighbors(grid, 2)
+  return getStableNum(neighbors, 4)
 
 
 proc main =
