@@ -9,18 +9,17 @@ proc part1(earliest: int, ids: seq[int]): int =
 
 proc part2(ids: seq[int], offsets: seq[int]): int =
   var jump, nextJump = ids[0]
-  var deltas = offsets[1 .. ^1]
-  var delays = ids[1 .. ^1]
+  var deltas = offsets
 
   var numSynced = 1
-  while numSynced < ids.len:
+  while numSynced < deltas.len:
     result += jump
-    for i, delay in delays:
+    for i in 1 .. deltas.high:
       if deltas[i] != 0:
-        deltas[i] = (deltas[i] + jump) mod delay
+        deltas[i] = (deltas[i] + jump) mod ids[i]
         if deltas[i] == 0:
           inc numSynced
-          nextJump = lcm(nextJump, delay)
+          nextJump = lcm(nextJump, ids[i])
 
     jump = nextJump
 
