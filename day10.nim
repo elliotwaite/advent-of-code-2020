@@ -3,14 +3,14 @@ import algorithm, sequtils, sugar, tables
 
 
 proc part1(nums: seq[int]): int =
-  var ones, threes = 0
+  var d1, d3 = 0
   for i in 1 .. nums.high:
     case nums[i] - nums[i - 1]:
-      of 1: ones.inc
-      of 3: threes.inc
+      of 1: inc d1
+      of 3: inc d3
       else: discard
 
-  return ones * threes
+  return d1 * d3
 
 
 proc part2(nums: seq[int]): int =
