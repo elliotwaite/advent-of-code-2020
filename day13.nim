@@ -3,7 +3,7 @@ import math, sequtils
 
 
 proc part1(earliest: int, ids: seq[int]): int =
-  let (wait, id) = ids.mapIt((it - 1 - ((earliest - 1) mod it), it)).min
+  let (wait, id) = ids.mapIt((it - ((earliest - 1) mod it) - 1, it)).min
   return wait * id
 
 
