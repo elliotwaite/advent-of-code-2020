@@ -16,6 +16,10 @@ proc rotateLeft(p: var Point, degrees: int) =
     else: p = (p.y, -p.x)
 
 
+proc l1(p: point): int =
+  abs(pos.x) + abs(pos.y)
+
+
 proc part1(instructions: Instructions): int =
   var pos, facing: Point
   facing = (1, 0)
@@ -31,7 +35,7 @@ proc part1(instructions: Instructions): int =
         pos.x += facing.x * inst.val
         pos.y += facing.y * inst.val
 
-  return abs(pos.x) + abs(pos.y)
+  return pos.l1
 
 
 proc part2(instructions: Instructions): int =
@@ -49,7 +53,7 @@ proc part2(instructions: Instructions): int =
         pos.x += way.x * inst.val
         pos.y += way.y * inst.val
 
-  return abs(pos.x) + abs(pos.y)
+  return pos.l1
 
 
 proc main =
