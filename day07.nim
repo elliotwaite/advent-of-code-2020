@@ -1,5 +1,5 @@
 include prelude
-import hashes, intsets, sequtils, strscans
+import intsets, sequtils, strscans
 
 type
   ParentsTable = Table[string, HashSet[string]]
