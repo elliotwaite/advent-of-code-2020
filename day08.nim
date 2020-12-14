@@ -73,7 +73,10 @@ proc part2(insts: Instructions): int =
         foundBug = true
         continue
 
-      if insts[state.line].op == nop and state.line + insts[state.line].val.int16 in dontLoop:
+      if (
+        insts[state.line].op == nop and
+        state.line + insts[state.line].val.int16 in dontLoop
+      ):
         state.line.inc insts[state.line].val
         foundBug = true
         continue
