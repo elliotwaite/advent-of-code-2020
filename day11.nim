@@ -26,18 +26,18 @@ proc getNeighbors(grid: Grid, part: int): Neighbors =
         for di in -1 .. 1:
           for dj in -1 .. 1:
             if not (di == 0 and dj == 0):
-              var ci = i + di
-              var cj = j + dj
-              while ci in iSlice and cj in jSlice:
-                if grid[ci][cj] == 'L':
-                  result[^1].add offsets[ci][cj]
+              var pi = i + di
+              var pj = j + dj
+              while pi in iSlice and pj in jSlice:
+                if grid[pi][pj] == 'L':
+                  result[^1].add offsets[pi][pj]
                   break
 
                 if part == 1:
                   break
 
-                ci += di
-                cj += dj
+                pi += di
+                pj += dj
 
 
 proc updateSeats(seats1: var Seats, seats2: var Seats,
