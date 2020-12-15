@@ -10,20 +10,15 @@ proc part1(earliest: int, cycleTimes: seq[int]): int =
 
 
 proc part2(cycleTimes: seq[int], offsets: seq[int]): int =
-  var jump, nextJump = cycleTimes[0]
-  var deltas = offsets
+  var jump = cycleTimes[0]
 
-  var numSynced = 1
-  while numSynced < deltas.len:
-    result += jump
-    for i in 1 .. deltas.high:
-      if deltas[i] != 0:
-        deltas[i] = (deltas[i] + jump) mod cycleTimes[i]
-        if deltas[i] == 0:
-          inc numSynced
-          nextJump = lcm(nextJump, cycleTimes[i])
-
-    jump = nextJump
+  for (cycleTime, offset) in zip(cycleTimes[1 .. ^1], offsets[1 .. ^1]):
+    let targetMod = floorMod(cycleTime - offset, cycleTime)
+    while true:
+      if result mod cycleTime == targetMod:
+        jump = lcm(jump, cycleTime)
+        break
+      result += jump
 
 
 proc main =
