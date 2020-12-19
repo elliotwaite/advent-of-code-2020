@@ -1,5 +1,4 @@
-include prelude
-import arraymancer, sequtils, sugar
+import arraymancer, sequtils
 
 
 proc step3d(s1: var Tensor[int], s2: var Tensor[int]) =
@@ -76,7 +75,6 @@ proc main =
 
   let answer2 = part2(s0)
   echo answer2
-
   doAssert answer2 == 2308
 
 
