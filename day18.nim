@@ -4,7 +4,7 @@ type
   Op = enum
     opSum, opMul
 
-proc evaluate1(line: string): int =
+proc eval1(line: string): int =
   # Only parenthesis precedence.
   var vals = [0].toDeque
   var ops = [opSum].toDeque
@@ -35,7 +35,7 @@ proc evaluate1(line: string): int =
   return vals[0]
 
 
-proc evaluate2(line: string): int =
+proc eval2(line: string): int =
   # Parenthesis precedence and addition before multiplication.
   var muls = [1].toDeque
   var adds = [0].toDeque
@@ -61,12 +61,12 @@ proc evaluate2(line: string): int =
 
 proc part1(lines: seq[string]): int =
   for line in lines:
-    result += line.evaluate1
+    result += line.eval1
 
 
 proc part2(lines: seq[string]): int =
   for line in lines:
-    result += line.evaluate2
+    result += line.eval2
 
 
 proc main =
