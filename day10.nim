@@ -1,5 +1,5 @@
 include prelude
-import algorithm, sequtils, sugar, tables
+import algorithm, sugar
 
 
 proc part1(nums: seq[int]): int =
@@ -22,7 +22,7 @@ proc part2(nums: seq[int]): int =
 
 
 proc main =
-  var nums = collect(newSeq):
+  var nums = collect:
     for line in "inputs/day10.txt".lines:
       line.parseInt
 

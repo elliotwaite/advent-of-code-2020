@@ -1,4 +1,5 @@
-import arraymancer, sequtils
+include prelude
+import arraymancer
 
 
 proc step3d(s1: var Tensor[int], s2: var Tensor[int]) =
@@ -62,7 +63,7 @@ proc part2(s0: Tensor[int]): int =
 
 
 proc main =
-  let lines = toSeq("inputs/day17.txt".lines)
+  let lines = "inputs/day17.txt".lines.toSeq
   var s0 = zeros[int]([lines.len, lines[0].len])
   for i, line in lines:
     for j, c in line:

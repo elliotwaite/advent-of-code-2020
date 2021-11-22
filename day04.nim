@@ -1,5 +1,5 @@
 include prelude
-import re, sequtils
+import re
 
 let
   requiredFields = toHashSet(["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"])
@@ -34,7 +34,7 @@ proc isValid(passport: Table[string, string]): bool =
 
 proc part1(passports: seq[Table[string, string]]): int =
   for passport in passports:
-    if toSeq(passport.keys).toHashSet >= requiredFields:
+    if passport.keys.toSeq.toHashSet >= requiredFields:
       inc result
 
 

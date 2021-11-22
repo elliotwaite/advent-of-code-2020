@@ -15,7 +15,7 @@ proc solve(inputNums: seq[int], numTurns: int): int =
 
 
 proc main =
-  let inputNums = collect(newSeq):
+  let inputNums = collect:
     for num in "inputs/day15.txt".readFile.split(','):
       num.parseInt
 

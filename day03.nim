@@ -1,5 +1,4 @@
 include prelude
-import sequtils
 
 let inputPath = joinPath(os.getAppDir(), "input.txt")
 
@@ -28,7 +27,7 @@ proc part2(grid: seq[string]): int =
 
 
 proc main =
-  let grid = toSeq("inputs/day03.txt".lines)
+  let grid = "inputs/day03.txt".lines.toSeq
 
   let answer1 = part1(grid)
   echo answer1

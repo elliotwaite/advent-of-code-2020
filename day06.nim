@@ -1,5 +1,4 @@
 include prelude
-include sequtils
 
 
 proc part1(groups: seq[string]): int =

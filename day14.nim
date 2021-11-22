@@ -1,5 +1,5 @@
 include prelude
-import bitops, sequtils, strscans
+import bitops, strscans
 
 
 proc floatingOrMasks(mask: string): seq[int] =
@@ -58,7 +58,7 @@ proc part2(lines: seq[string]): int =
 
 
 proc main =
-  let lines = toSeq("inputs/day14.txt".lines)
+  let lines = "inputs/day14.txt".lines.toSeq
 
   let answer1 = part1(lines)
   echo answer1

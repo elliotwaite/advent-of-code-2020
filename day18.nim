@@ -1,4 +1,5 @@
-import deques, sequtils
+include prelude
+import deques
 
 type
   Op = enum
@@ -70,7 +71,7 @@ proc part2(lines: seq[string]): int =
 
 
 proc main =
-  let lines = toSeq("inputs/day18.txt".lines)
+  let lines = "inputs/day18.txt".lines.toSeq
 
   let answer1 = part1(lines)
   echo answer1

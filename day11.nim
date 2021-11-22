@@ -1,5 +1,4 @@
 include prelude
-import sequtils
 
 type
   Grid = seq[string]
@@ -74,7 +73,7 @@ proc part2(grid: Grid): int =
 
 
 proc main =
-  let grid = toSeq("inputs/day11.txt".lines)
+  let grid = "inputs/day11.txt".lines.toSeq
 
   let answer1 = part1(grid)
   echo answer1

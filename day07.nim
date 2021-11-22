@@ -1,5 +1,5 @@
 include prelude
-import intsets, sequtils, strscans
+import intsets, strscans
 
 type
   ParentsTable = Table[string, HashSet[string]]
@@ -65,7 +65,7 @@ proc part2(lines: seq[string]): int =
 
 
 proc main =
-  let lines = toSeq("inputs/day07.txt".lines)
+  let lines = "inputs/day07.txt".lines.toSeq
 
   let answer1 = part1(lines)
   echo answer1

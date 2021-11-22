@@ -1,5 +1,5 @@
 include prelude
-import algorithm, sequtils, sugar
+import algorithm, sugar
 
 
 proc part1(seatNumbers: seq[int]): int =
@@ -13,7 +13,7 @@ proc part2(seatNumbers: seq[int]): int =
 
 
 proc main =
-  var seatNumbers = collect(newSeq):
+  var seatNumbers = collect:
     for line in "inputs/day05.txt".lines:
       line.replace('F', '0').replace('B', '1').replace('L', '0').replace('R', '1').parseBinInt
 

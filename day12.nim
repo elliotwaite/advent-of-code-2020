@@ -57,7 +57,7 @@ proc part2(instructions: Instructions): int =
 
 
 proc main =
-  let instructions = collect(newSeq):
+  let instructions = collect:
     for line in "inputs/day12.txt".lines:
       (parseEnum[Action](line[0 .. 0]), parseInt(line[1 .. ^1]))
 

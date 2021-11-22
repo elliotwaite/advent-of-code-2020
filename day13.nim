@@ -1,5 +1,5 @@
 include prelude
-import math, sequtils
+import math
 
 
 proc part1(earliest: int, cycleTimes: seq[int]): int =
@@ -22,7 +22,7 @@ proc part2(cycleTimes: seq[int], offsets: seq[int]): int =
 
 
 proc main =
-  let lines = toSeq("inputs/day13.txt".lines)
+  let lines = "inputs/day13.txt".lines.toSeq
   let earliest = lines[0].parseInt
 
   var cycleTimes, offsets: seq[int]

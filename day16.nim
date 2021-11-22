@@ -1,5 +1,5 @@
 include prelude
-import sequtils, strscans, sugar
+import strscans, sugar
 
 type
   Rule = tuple[field: string, range: set[int16]]
@@ -42,7 +42,7 @@ proc part2(rules: Rules, myTicket: Ticket, nearbyTickets: Tickets): int =
   for _ in 0 .. rulePossibleFields.high:
     for ruleIndex, possibleFields in rulePossibleFields:
       if possibleFields.len == 1:
-        let field = toSeq(possibleFields)[0]
+        let field = possibleFields.toSeq[0]
         ruleToField[ruleIndex] = field
         for i in 0 .. rulePossibleFields.high:
           rulePossibleFields[i].excl field
@@ -56,8 +56,8 @@ proc part2(rules: Rules, myTicket: Ticket, nearbyTickets: Tickets): int =
 
 proc main =
   let groups = "inputs/day16.txt".readFile.split("\n\n")
-  var rules = collect(newSeq):
-    for line in toSeq(groups[0].splitLines):
+  var rules = collect:
+    for line in groups[0].splitLines:
       var field: string
       var a, b, c, d: int
       var range: set[int16]

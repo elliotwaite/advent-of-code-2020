@@ -15,7 +15,7 @@ proc part2(vals: seq[(int, int, string, string)]): int =
 
 
 proc main =
-  let vals = collect(newSeq):
+  let vals = collect:
     for line in "inputs/day02.txt".lines:
       var
         a, b: int

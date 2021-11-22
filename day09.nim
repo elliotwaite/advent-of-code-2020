@@ -25,7 +25,7 @@ proc part2(nums: seq[int], target: int): int =
 
 
 proc main =
-  let nums = collect(newSeq):
+  let nums = collect:
     for line in "inputs/day09.txt".lines:
       line.parseInt
 
